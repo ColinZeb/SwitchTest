@@ -1,0 +1,20 @@
+version: '3.4'
+
+services:
+  switchtest:
+    image: ${DOCKER_REGISTRY-}switchtest
+    build:
+      context: .
+      dockerfile: SwitchTest/Dockerfile
+  pgdb:
+    image: postgres:13
+    container_name: pgdb_test
+    environment:
+      - ACCEPT_EULA=Y
+      - POSTGRES_PASSWORD=db_dev 
+      - TZ=Asia/Shanghai
+    volumes:
+      - ./pgdb/data:/var/lib/postgresql/data  # Requested, specifies the path to MySQL data persistent store.
+      - ./pgdb/config:/etc/postgresql
+    ports:
+      - "5432:5432"

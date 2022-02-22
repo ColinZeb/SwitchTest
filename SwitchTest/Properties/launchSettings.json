@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "SwitchTest": {
+      "commandName": "Project"
+    },
+    "Docker": {
+      "commandName": "Docker"
+    }
+  }
+}

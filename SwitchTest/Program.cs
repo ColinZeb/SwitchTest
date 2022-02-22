@@ -10,17 +10,17 @@ public class Program
     {
 
         var tz = TimeZone.CurrentTimeZone.StandardName;
-        Console.WriteLine(tz);
+        Console.WriteLine(tz);//Ensure timezone is not utc
         Console.WriteLine("Hello, World!");
 
         var ob = new DbContextOptionsBuilder();
         ob.UseNpgsql("Host=localhost;Port=5432;Database=dbtest;Username=postgres;Password=db_dev");
         using var db = new MyDbContext(ob.Options);
         //db.Books.FirstOrDefault();
-        //AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+        AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
         var today = DateTime.Today;
-        QueryTest(db, today);
+        //QueryTest(db, today);
         TestInsert(db, today);
         TestInsert(db, today.ToUniversalTime());
         Console.ReadKey();

@@ -14,15 +14,18 @@ public class Program
         Console.WriteLine("Hello, World!");
 
         var ob = new DbContextOptionsBuilder();
-        ob.UseNpgsql("Host=localhost;Port=5432;Database=dbtest;Username=postgres;Password=db_dev");
+        ob.UseNpgsql("Host=localhost;Port=5432;Database=dbtest;Username=postgres;Password=db_dev")
+            .AddInterceptors(new DateTimeDbCommandInterceptor());
         using var db = new MyDbContext(ob.Options);
         //db.Books.FirstOrDefault();
-        AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+        //AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
         var today = DateTime.Today;
         //QueryTest(db, today);
         TestInsert(db, today);
+        //QueryTest(db, today);
         TestInsert(db, today.ToUniversalTime());
+        //QueryTest(db, today);
         Console.ReadKey();
     }
 
